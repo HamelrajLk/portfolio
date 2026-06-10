@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hamelraj Rajendran — Full-Stack & AI Engineer</title>
+<meta name="description" content="Hamelraj Rajendran — Full-Stack Software Engineer with 11+ years building scalable systems, now specialising in AI-powered development: RAG pipelines, AI agents and Custom GPTs." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#06070b;
+  --bg-2:#0b0d14;
+  --surface:#0e111a;
+  --surface-2:#131724;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.14);
+  --text:#e9edf4;
+  --muted:#9aa3b4;
+  --muted-2:#6b7384;
+  --accent:#6ee7ff;
+  --accent-deep:#22d3ee;
+  --accent-glow:rgba(110,231,255,0.18);
+  --display:'Space Grotesk',sans-serif;
+  --body:'Manrope',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#03242b}
+
+/* ---------- neural canvas ---------- */
+#neural{position:fixed;inset:0;z-index:0;display:block}
+.bg-veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 78% -5%, rgba(110,231,255,0.10), transparent 60%),
+    radial-gradient(700px 500px at 8% 12%, rgba(110,231,255,0.05), transparent 60%),
+    linear-gradient(180deg, rgba(6,7,11,0.0) 0%, rgba(6,7,11,0.35) 55%, rgba(6,7,11,0.85) 100%);
+}
+.page{position:relative;z-index:2}
+
+/* ---------- shared ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);opacity:.7}
+section{position:relative;padding:120px 0}
+.section-h{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-0.02em;line-height:1.05;margin-bottom:18px}
+.section-sub{color:var(--muted);max-width:560px;font-size:17px;margin-bottom:56px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;transition:.35s ease}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
+.nav.scrolled{background:rgba(8,9,14,0.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;letter-spacing:-0.01em}
+.brand .mk{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-weight:600;font-size:15px;box-shadow:0 0 22px var(--accent-glow) inset}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:14px;color:var(--muted);transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--line-strong);padding:9px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;transition:.25s}
+.nav-cta:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-glow)}
+.nav-cta .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.burger{display:none}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:120px;padding-bottom:80px}
+.hero-grid{display:grid;grid-template-columns:1.25fr 0.85fr;gap:60px;align-items:center;width:100%}
+.status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--muted);border:1px solid var(--line);background:rgba(255,255,255,0.02);padding:7px 14px;border-radius:999px;margin-bottom:28px}
+.status .live{width:8px;height:8px;border-radius:50%;background:#36e07d;box-shadow:0 0 10px #36e07d;animation:pulse 1.8s infinite}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,6.4vw,82px);line-height:0.98;letter-spacing:-0.035em;margin-bottom:22px}
+.hero h1 .grad{background:linear-gradient(120deg,#fff 10%,var(--accent) 60%,#fff 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .role{font-family:var(--mono);font-size:clamp(14px,1.6vw,17px);color:var(--accent);letter-spacing:.06em;margin-bottom:24px;min-height:1.4em}
+.hero p.lede{font-size:18px;color:var(--muted);max-width:540px;margin-bottom:38px;text-wrap:pretty}
+.hero p.lede b{color:var(--text);font-weight:600}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--body);font-weight:600;font-size:15px;padding:14px 24px;border-radius:12px;display:inline-flex;align-items:center;gap:10px;transition:.25s;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#04222a;box-shadow:0 10px 30px -8px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px var(--accent-glow)}
+.btn-ghost{background:rgba(255,255,255,0.03);border-color:var(--line-strong);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:38px;margin-top:54px;flex-wrap:wrap}
+.stat .n{font-family:var(--display);font-weight:600;font-size:30px;color:#fff;letter-spacing:-0.02em}
+.stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-top:4px}
+
+/* hero portrait */
+.portrait-wrap{position:relative;justify-self:center}
+.portrait{position:relative;width:340px;height:420px;border-radius:20px;overflow:hidden;border:1px solid var(--line-strong);background:linear-gradient(160deg,#10141f,#0a0c12)}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.03) 0 12px,transparent 12px 24px);}
+.portrait .ph .mono-avatar{font-family:var(--display);font-weight:700;font-size:74px;color:var(--accent);text-shadow:0 0 40px var(--accent-glow)}
+.portrait .ph small{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted-2);text-transform:uppercase}
+.portrait-frame{position:absolute;inset:-12px;border:1px solid var(--line);border-radius:26px;pointer-events:none}
+.portrait-tag{position:absolute;left:-22px;bottom:34px;background:var(--surface-2);border:1px solid var(--line-strong);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 18px 40px -16px rgba(0,0,0,.7)}
+.portrait-tag .ic{width:34px;height:34px;border-radius:9px;background:rgba(110,231,255,0.12);display:grid;place-items:center;color:var(--accent);font-family:var(--mono)}
+.portrait-tag .t1{font-size:13px;font-weight:600}
+.portrait-tag .t2{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted-2);text-transform:uppercase}
+
+/* layout variant: centered */
+body[data-hero="centered"] .hero-grid{grid-template-columns:1fr;text-align:center;max-width:880px;margin:0 auto}
+body[data-hero="centered"] .hero .lede{margin-left:auto;margin-right:auto}
+body[data-hero="centered"] .hero-cta,body[data-hero="centered"] .hero-stats{justify-content:center}
+body[data-hero="centered"] .portrait-wrap{order:-1;margin-bottom:14px}
+body[data-hero="centered"] .portrait{width:128px;height:128px;border-radius:50%}
+body[data-hero="centered"] .portrait-tag,body[data-hero="centered"] .portrait-frame{display:none}
+body[data-hero="centered"] .eyebrow{justify-content:center}
+body[data-hero="centered"] .status{margin-left:auto;margin-right:auto}
+
+/* layout variant: terminal */
+body[data-hero="terminal"] .portrait-wrap{align-self:stretch;width:100%}
+body[data-hero="terminal"] .portrait{display:none}
+.term{display:none;background:rgba(8,10,16,0.82);border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;font-family:var(--mono);font-size:13.5px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);backdrop-filter:blur(6px)}
+body[data-hero="terminal"] .term{display:block}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,0.02)}
+.term-bar i{width:11px;height:11px;border-radius:50%;display:block}
+.term-bar .r{background:#ff5f57}.term-bar .y{background:#febc2e}.term-bar .g{background:#28c840}
+.term-bar span{margin-left:10px;color:var(--muted-2);font-size:11px;letter-spacing:.08em}
+.term-body{padding:20px 20px 24px;min-height:300px;line-height:1.85}
+.term-body .cmt{color:var(--muted-2)}
+.term-body .k{color:var(--accent)}
+.term-body .s{color:#9be6a0}
+.term-body .v{color:#fff}
+.term-body .pr{color:var(--accent)}
+.cursor{display:inline-block;width:9px;height:17px;background:var(--accent);vertical-align:-3px;animation:blink 1s steps(2) infinite}
+@keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+
+/* hero layout switcher */
+.hero-switch{position:fixed;left:22px;bottom:22px;z-index:39;background:rgba(12,14,22,0.86);backdrop-filter:blur(12px);border:1px solid var(--line-strong);border-radius:14px;padding:10px;box-shadow:0 18px 50px -20px rgba(0,0,0,.8);transition:.3s}
+.hero-switch .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);padding:2px 6px 8px;display:block}
+.hero-switch .opts{display:flex;gap:5px}
+.hero-switch button{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.2s}
+.hero-switch button:hover{color:var(--text);border-color:var(--line-strong)}
+.hero-switch button.on{background:var(--accent);color:#04222a;border-color:var(--accent);font-weight:600}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:start}
+.about-lede{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.6vw,30px);line-height:1.4;letter-spacing:-0.01em;color:var(--text);text-wrap:pretty}
+.about-lede b{color:var(--accent);font-weight:600}
+.about-side{display:flex;flex-direction:column;gap:18px}
+.fact{border:1px solid var(--line);border-radius:14px;padding:20px;background:rgba(255,255,255,0.015);transition:.25s}
+.fact:hover{border-color:var(--line-strong);background:rgba(255,255,255,0.03)}
+.fact .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.fact .val{font-size:15px;color:var(--muted)}
+.fact .val b{color:var(--text);font-weight:600}
+
+/* ---------- tech stack ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stack-card{border:1px solid var(--line);border-radius:16px;padding:26px;background:rgba(255,255,255,0.015);position:relative;overflow:hidden;transition:.3s}
+.stack-card::after{content:"";position:absolute;inset:0;background:radial-gradient(260px 160px at var(--mx,50%) var(--my,0%),var(--accent-glow),transparent 70%);opacity:0;transition:.3s;pointer-events:none}
+.stack-card:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+.stack-card:hover::after{opacity:1}
+.stack-card.ai{border-color:rgba(110,231,255,0.3);background:linear-gradient(160deg,rgba(110,231,255,0.06),rgba(255,255,255,0.01))}
+.stack-card h3{font-family:var(--display);font-weight:600;font-size:18px;display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.stack-card h3 .num{font-family:var(--mono);font-size:11px;color:var(--muted-2);font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12px;padding:6px 11px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,0.025);color:var(--muted);transition:.18s;cursor:default}
+.chip:hover{color:var(--accent);border-color:var(--accent);background:rgba(110,231,255,0.08);transform:translateY(-2px)}
+.stack-card.ai .chip:hover{box-shadow:0 0 18px var(--accent-glow)}
+
+/* ---------- experience ---------- */
+.timeline{position:relative;margin-left:6px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--accent),var(--line) 40%,transparent)}
+.tl-item{position:relative;padding:0 0 44px 44px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:2px;top:5px;width:16px;height:16px;border-radius:50%;border:1px solid var(--accent);background:var(--bg);display:grid;place-items:center}
+.tl-dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.tl-item.cur .tl-dot::after{animation:pulse 1.8s infinite}
+.tl-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
+.tl-role{font-family:var(--display);font-weight:600;font-size:19px}
+.tl-when{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.04em;white-space:nowrap}
+.tl-co{font-size:14px;color:var(--muted);margin-bottom:14px}
+.tl-co .badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);border:1px solid var(--line);border-radius:6px;padding:2px 7px;margin-left:8px}
+.tl-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.tl-list li{position:relative;padding-left:20px;color:var(--muted);font-size:15px;text-wrap:pretty}
+.tl-list li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--accent)}
+
+/* ---------- projects ---------- */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.proj{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.015);transition:.3s;min-height:300px}
+.proj:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 24px 60px -30px var(--accent-glow)}
+.proj-top{padding:24px 24px 0;display:flex;align-items:flex-start;justify-content:space-between}
+.proj-idx{font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+.proj-arrow{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:.25s}
+.proj:hover .proj-arrow{border-color:var(--accent);color:var(--accent);transform:rotate(-45deg)}
+.proj-body{padding:18px 24px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj h3{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-0.01em}
+.proj .domain{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.proj p{color:var(--muted);font-size:14.5px;flex:1;text-wrap:pretty}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.proj-tags span{font-family:var(--mono);font-size:11px;color:var(--muted-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+
+/* ---------- edu ---------- */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.edu-col h3.sub{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.edu-item{border-left:1px solid var(--line);padding:0 0 26px 22px;position:relative}
+.edu-item::before{content:"";position:absolute;left:-4px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.edu-item:last-child{padding-bottom:0}
+.edu-item .deg{font-family:var(--display);font-weight:600;font-size:17px;margin-bottom:4px}
+.edu-item .inst{font-size:14px;color:var(--muted)}
+.edu-item .yr{font-family:var(--mono);font-size:12px;color:var(--muted-2);margin-top:4px}
+
+/* ---------- contact ---------- */
+.contact{padding-bottom:90px}
+.contact-card{border:1px solid var(--line-strong);border-radius:24px;padding:60px;background:linear-gradient(160deg,rgba(110,231,255,0.06),rgba(255,255,255,0.01));position:relative;overflow:hidden;text-align:center}
+.contact-card h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.5vw,52px);letter-spacing:-0.03em;line-height:1.05;margin-bottom:18px}
+.contact-card h2 .grad{background:linear-gradient(120deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.contact-card p{color:var(--muted);max-width:480px;margin:0 auto 34px;font-size:17px}
+.contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.social-row{display:flex;gap:14px;justify-content:center;margin-top:40px}
+.social{width:46px;height:46px;border-radius:12px;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--muted);transition:.25s}
+.social:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 0 24px var(--accent-glow)}
+.social svg{width:20px;height:20px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:34px 0}
+.foot-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-inner .c{font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+
+/* ---------- chatbot ---------- */
+.chat-fab{position:fixed;right:22px;bottom:22px;z-index:50;display:flex;align-items:center;gap:11px;background:var(--accent);color:#04222a;font-family:var(--body);font-weight:600;font-size:14px;border:none;padding:13px 18px 13px 14px;border-radius:999px;cursor:pointer;box-shadow:0 14px 40px -10px var(--accent-glow);transition:.25s}
+.chat-fab:hover{transform:translateY(-2px);box-shadow:0 18px 50px -10px var(--accent-glow)}
+.chat-fab .av{width:26px;height:26px;border-radius:50%;background:#04222a;display:grid;place-items:center}
+.chat-fab .av svg{width:15px;height:15px;color:var(--accent)}
+.chat-panel{position:fixed;right:22px;bottom:22px;z-index:51;width:380px;max-width:calc(100vw - 28px);height:560px;max-height:calc(100vh - 44px);background:var(--surface);border:1px solid var(--line-strong);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.85);transform:translateY(10px) scale(.98);opacity:0;visibility:hidden;pointer-events:none;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.chat-panel.open{transform:none;opacity:1;visibility:visible;pointer-events:auto}
+.chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,0.02)}
+.chat-head .bot{width:38px;height:38px;border-radius:11px;background:rgba(110,231,255,0.12);display:grid;place-items:center;color:var(--accent);position:relative}
+.chat-head .bot svg{width:20px;height:20px}
+.chat-head .bot .on{position:absolute;right:-2px;bottom:-2px;width:11px;height:11px;border-radius:50%;background:#36e07d;border:2px solid var(--surface)}
+.chat-head .ttl{flex:1}
+.chat-head .ttl .n{font-family:var(--display);font-weight:600;font-size:15px}
+.chat-head .ttl .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted-2)}
+.chat-close{background:none;border:none;color:var(--muted);cursor:pointer;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;transition:.2s}
+.chat-close:hover{background:rgba(255,255,255,0.05);color:var(--text)}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.chat-msgs::-webkit-scrollbar{width:6px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:3px}
+.msg{max-width:84%;font-size:14px;line-height:1.55;padding:11px 14px;border-radius:14px;text-wrap:pretty}
+.msg.bot{align-self:flex-start;background:var(--surface-2);border:1px solid var(--line);border-bottom-left-radius:5px;color:var(--text)}
+.msg.user{align-self:flex-end;background:var(--accent);color:#04222a;border-bottom-right-radius:5px;font-weight:500}
+.msg.bot b{color:var(--accent);font-weight:600}
+.typing{display:flex;gap:5px;align-items:center;padding:13px 15px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.chat-sugg{display:flex;gap:7px;flex-wrap:wrap;padding:0 18px 12px}
+.chat-sugg button{font-family:var(--mono);font-size:11px;color:var(--accent);border:1px solid var(--line);background:rgba(110,231,255,0.05);border-radius:999px;padding:6px 11px;cursor:pointer;transition:.2s}
+.chat-sugg button:hover{border-color:var(--accent);background:rgba(110,231,255,0.12)}
+.chat-input{display:flex;gap:10px;padding:14px 16px;border-top:1px solid var(--line);background:rgba(255,255,255,0.02)}
+.chat-input input{flex:1;background:var(--bg-2);border:1px solid var(--line);border-radius:11px;padding:11px 14px;color:var(--text);font-family:var(--body);font-size:14px;outline:none;transition:.2s}
+.chat-input input:focus{border-color:var(--accent)}
+.chat-input button{width:42px;height:42px;border-radius:11px;background:var(--accent);border:none;color:#04222a;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.chat-input button:hover{transform:scale(1.05)}
+.chat-input button:disabled{opacity:.5;cursor:not-allowed}
+.chat-input button svg{width:18px;height:18px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .hero-grid,.about-grid,.edu-grid{grid-template-columns:1fr;gap:44px}
+  .stack-grid,.proj-grid{grid-template-columns:1fr}
+  .portrait-wrap{order:-1}
+  .nav-links{display:none}
+  section{padding:90px 0}
+  .hero{padding-top:130px}
+  .contact-card{padding:38px 24px}
+  .hero-switch{bottom:14px;left:14px;right:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body data-hero="split">
+
+<canvas id="neural"></canvas>
+<div class="bg-veil"></div>
+
+<div class="page">
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="mk">HR</span>Hamelraj<span style="color:var(--muted-2)">.dev</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-cta" onclick="openChat()"><span class="dot"></span>Ask my AI</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>Hamelraj<br><span class="grad">Rajendran</span></h1>
+        <div class="role" id="role"></div>
+        <p class="lede">Full-stack engineer with <b>11+ years</b> shipping scalable back-ends and polished front-ends. Now building the AI layer — <b>RAG pipelines, AI agents and Custom GPTs</b> with OpenAI, Claude &amp; LangChain.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="openChat()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v1a7 7 0 0 1 5 6.7V14a4 4 0 0 1-4 4h-1.3l-2.7 3-2.7-3H9a4 4 0 0 1-4-4v-2.3A7 7 0 0 1 10 5V4a2 2 0 0 1 2-2Z"/></svg>
+            Chat with my AI assistant
+          </button>
+          <a class="btn btn-ghost" href="#projects">View projects</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="n">11+</div><div class="l">Years building</div></div>
+          <div class="stat"><div class="n">5</div><div class="l">Companies · 3 countries</div></div>
+          <div class="stat"><div class="n">AI</div><div class="l">RAG · Agents · LLMs</div></div>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="portrait-wrap">
+          <div class="portrait-frame"></div>
+          <div class="portrait">
+            <img src="hamel.png" alt="Hamelraj Rajendran" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            
+          </div>
+          <div class="portrait-tag">
+            <div class="ic">&#x2728;</div>
+            <div><div class="t1">AI-Powered Dev</div><div class="t2">OpenAI · Claude · LangChain</div></div>
+          </div>
+        </div>
+
+        <!-- terminal variant -->
+        <div class="term">
+          <div class="term-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>hamelraj@portfolio: ~ </span></div>
+          <div class="term-body" id="termBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow">01 — About</span>
+        <p class="about-lede">I architect <b>full-stack solutions end to end</b> — from optimised database schemas and microservice APIs to responsive Vue &amp; React front-ends. Lately I'm pairing that foundation with <b>applied AI</b>: retrieval pipelines, autonomous agents and LLM integrations that ship to production.</p>
+      </div>
+      <div class="about-side reveal">
+        <div class="fact"><div class="lab">Based in</div><div class="val"><b>United Kingdom</b></div></div>
+        <div class="fact"><div class="lab">Currently</div><div class="val">Senior Web Developer, <b>Effective Consumable Solutions</b></div></div>
+        <div class="fact"><div class="lab">Education</div><div class="val">MSc Advanced Computer Science, <b>University of Chester</b></div></div>
+        <div class="fact"><div class="lab">Focus</div><div class="val">PHP · Laravel · Vue · Python · FastAPI · Node.js · <b>AI Engineering</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">02 — Tech Stack</span>
+      <h2 class="section-h">Tools I build with</h2>
+      <p class="section-sub">A decade-deep toolkit across the full stack, now extended into the AI layer.</p>
+    </div>
+    <div class="stack-grid" id="stackGrid"></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">03 — Experience</span>
+      <h2 class="section-h">11+ years, shipping across three continents</h2>
+      <p class="section-sub">From trainee to technical lead — back-end systems, full-stack products and team leadership.</p>
+    </div>
+    <div class="timeline reveal" id="timeline"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">04 — Selected Work</span>
+      <h2 class="section-h">Products I helped build</h2>
+      <p class="section-sub">A few platforms where I owned APIs, architecture and full-stack delivery.</p>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">05 — Education &amp; Certifications</span>
+      <h2 class="section-h">Foundations</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-col">
+        <h3 class="sub">Education</h3>
+        <div class="edu-item"><div class="deg">MSc Advanced Computer Science</div><div class="inst">University of Chester — United Kingdom</div><div class="yr">Jan 2025 — Feb 2026</div></div>
+        <div class="edu-item"><div class="deg">BSc Information Technology</div><div class="inst">Aquinas College of Higher Studies — Sri Lanka</div><div class="yr">Dec 2011 — Nov 2014</div></div>
+      </div>
+      <div class="edu-col">
+        <h3 class="sub">Certifications</h3>
+        <div class="edu-item"><div class="deg">Java SE 6 Programmer — Certified</div><div class="inst">Oracle Certification</div><div class="yr">September 2014</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <span class="eyebrow" style="justify-content:center">06 — Contact</span>
+      <h2>Let's build something<br><span class="grad">intelligent together.</span></h2>
+      <p>Open to senior full-stack and AI engineering roles. Have a question? Ask my AI assistant, or reach me directly.</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:hamelraj89@gmail.com">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          hamelraj89@gmail.com
+        </a>
+        <button class="btn btn-ghost" onclick="openChat()">Ask my AI assistant</button>
+      </div>
+      <div class="social-row">
+        <a class="social" href="https://github.com/HamelrajLk" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5 18 5.3 18 5.3c.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
+        <a class="social" href="https://www.linkedin.com/in/hamelraj/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.3 18.3v-7H6v7h2.3ZM7.1 10.2a1.3 1.3 0 1 0 0-2.7 1.3 1.3 0 0 0 0 2.7Zm11.2 8.1v-3.9c0-2-1.1-3-2.6-3-1.2 0-1.7.7-2 1.1v-1H11.4c0 .6 0 7 0 7h2.3v-3.9c0-.2 0-.4.1-.6.1-.4.5-.9 1.2-.9.8 0 1.2.6 1.2 1.5v3.9h2.1Z"/></svg></a>
+        <a class="social" href="https://stackoverflow.com/users/4576046/hamelraj" target="_blank" rel="noopener" aria-label="Stack Overflow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.2 16.5v-4.2h1.8V18H4.9v-5.7h1.8v4.2h10.5ZM7.6 14.6l8.2 1.7.4-1.7-8.3-1.7-.3 1.7Zm1-4 7.6 3.5.7-1.6-7.6-3.5-.7 1.6Zm2.1-3.9 6.4 5.3 1.1-1.3-6.4-5.3-1.1 1.3ZM14.9 0l-1.5 1.1 5 6.6 1.4-1.1L14.9 0ZM7.4 18.3v-1.7h8.3v1.7H7.4Z"/></svg></a>
+        <a class="social" href="mailto:hamelraj89@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <span class="c">© 2026 Hamelraj Rajendran — built &amp; designed by me.</span>
+    <span class="c">United Kingdom · +44 740 501 4119</span>
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<!-- HERO SWITCHER -->
+<div class="hero-switch" id="heroSwitch">
+  <span class="lbl">Hero layout</span>
+  <div class="opts">
+    <button data-h="split" class="on">Split</button>
+    <button data-h="centered">Centered</button>
+    <button data-h="terminal">Terminal</button>
+  </div>
+</div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="openChat()">
+  <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v1a7 7 0 0 1 5 6.7V14a4 4 0 0 1-4 4h-1.3l-2.7 3-2.7-3H9a4 4 0 0 1-4-4v-2.3A7 7 0 0 1 10 5V4a2 2 0 0 1 2-2Z"/></svg></span>
+  Ask my AI
+</button>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v1a7 7 0 0 1 5 6.7V14a4 4 0 0 1-4 4h-1.3l-2.7 3-2.7-3H9a4 4 0 0 1-4-4v-2.3A7 7 0 0 1 10 5V4a2 2 0 0 1 2-2Z"/></svg><span class="on"></span></div>
+    <div class="ttl"><div class="n">Ask Hamelraj's AI</div><div class="s" id="chatStatus">trained on my CV</div></div>
+    <button class="chat-close" onclick="closeChat()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-sugg" id="chatSugg"></div>
+  <form class="chat-input" id="chatForm">
+    <input id="chatInput" type="text" placeholder="Ask about my experience, skills, AI work…" autocomplete="off" />
+    <button type="submit" id="chatSend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+  </form>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<!-- direct-edit style overrides -->
+<style id="__om-edit-overrides"></style>
+</body>
+</html>
